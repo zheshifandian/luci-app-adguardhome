@@ -8,8 +8,9 @@ auth_attempts: 0
 block_auth_min: 0
 http_proxy: ""
 language: zh-cn
+rlimit_nofile: 0
 debug_pprof: false
-web_session_ttl: 0
+web_session_ttl: 720
 dns:
   bind_hosts:
   - 0.0.0.0
@@ -222,4 +223,8 @@ log_max_size: 100
 log_max_age: 3
 log_file: ""
 verbose: false
+os:
+  group: ""
+  user: ""
+  rlimit_nofile: 0
 schema_version: 10

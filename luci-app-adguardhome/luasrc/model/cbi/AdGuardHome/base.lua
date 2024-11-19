@@ -5,7 +5,7 @@ local m,s,o,o1
 local fs=require"nixio.fs"
 local uci=require"luci.model.uci".cursor()
 local configpath=uci:get("AdGuardHome","AdGuardHome","configpath") or "/etc/AdGuardHome.yaml"
-local binpath=uci:get("AdGuardHome","AdGuardHome","binpath") or "/usr/bin/AdGuardHome"
+local binpath=uci:get("AdGuardHome","AdGuardHome","binpath") or "/etc/AdGuardHome/AdGuardHome"
 httpport=uci:get("AdGuardHome","AdGuardHome","httpport") or "3000"
 m = Map("AdGuardHome", "AdGuard Home")
 m.description = translate("Free and open source, powerful network-wide ads & trackers blocking DNS server.")
@@ -65,7 +65,7 @@ o.default     = "none"
 o.optional = true
 ---- bin path
 o = s:option(Value, "binpath", translate("Bin Path"), translate("AdGuardHome Bin path if no bin will auto download"))
-o.default     = "/usr/bin/AdGuardHome"
+o.default     = "/etc/AdGuardHome/AdGuardHome"
 o.datatype    = "string"
 o.optional = false
 o.rmempty=false
@@ -97,7 +97,7 @@ o.description=translate("bin use less space,but may have compatibility issues")
 o.rmempty = true
 ---- config path
 o = s:option(Value, "configpath", translate("Config Path"), translate("AdGuardHome config path"))
-o.default     = "/etc/AdGuardHome.yaml"
+o.default     = "/etc/AdGuardHome/AdGuardHome.yaml"
 o.datatype    = "string"
 o.optional = false
 o.rmempty=false
