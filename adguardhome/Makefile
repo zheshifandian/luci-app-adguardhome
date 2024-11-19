@@ -62,6 +62,9 @@ define Build/Prepare
 	gzip -dc $(DL_DIR)/$(ADG_FILE) | $(HOST_TAR) -C $(PKG_BUILD_DIR)/ $(TAR_OPTIONS)
 endef
 
+define Build/Compile
+endef
+
 define Package/adguardhome/install
 	$(INSTALL_DIR) $(1)/etc/AdGuardHome
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/AdGuardHome/AdGuardHome $(1)/etc/AdGuardHome
