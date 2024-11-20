@@ -81,7 +81,6 @@ tls:
   private_key: ""
   certificate_path: ""
   private_key_path: ""
-  strict_sni_check: false
 querylog:
   dir_path: ""
   ignored: []
@@ -219,8 +218,6 @@ dhcp:
     lease_duration: 86400
     ra_slaac_only: false
     ra_allow_slaac: false
-filtering: []
-clients: []
 log:
   enabled: true
   file: ""
