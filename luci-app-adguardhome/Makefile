@@ -23,8 +23,8 @@ PKG_CONFIG_DEPENDS:= CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_binary
 
 define Package/luci-app-adguardhome/conffiles
 /etc/AdGuardHome/
-/usr/share/AdGuardHome/
-/etc/config/AdGuardHome
+/etc/config/AdGuardHome/
+/usr/share/AdGuardHome
 endef
 
 define Package/luci-app-adguardhome/postinst
