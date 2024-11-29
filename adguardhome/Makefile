@@ -7,14 +7,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=adguardhome
-PKG_VERSION:=0.107.54
+PKG_VERSION:=0.108.0-b.60
 PKG_RELEASE:=1
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 PKG_LICENSE:=GPL-3.0-only
 PKG_LICENSE_FILES:=LICENSE.txt
-PKG_MAINTAINER:=Dobroslaw Kijowski <dobo90@gmail.com>
+PKG_MAINTAINER:=Jack Sun <sunjiazheng321521@gmail.com>
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -30,32 +30,41 @@ define Package/adguardhome/description
   Free and open source, powerful network-wide ads and trackers blocking DNS server.
 endef
 
-ifeq ($(ARCH),x86_64)
-    PKG_ARCH_ADG := linux_amd64
-    PKG_HASH := 00bab072ad10555a431be78723bc54f0da1c4f0c8568d4dc768cdd766edb07e4
-else ifeq ($(ARCH),i386)
-    PKG_ARCH_ADG := linux_386
-    PKG_HASH := 4372d302a874809441e750f5e3f0d913e4a50431fb8c27686790ffc969f0036a
-else ifeq ($(ARCH),mipsel)
-    PKG_ARCH_ADG := linux_mipsle
-    PKG_HASH := afe1ee073c3837d0745b49b2fe5bfed36da209be6778ec1cce573cee933a9b22
+ifeq ($(findstring $(ARCH),x86_64 x64 amd64),$(ARCH))
+    PKG_ARCH_ADG:=linux_amd64
+    PKG_HASH:=
+else ifeq ($(findstring $(ARCH),i386 i486 i686 i786 x86),$(ARCH))
+    PKG_ARCH_ADG:=linux_386
+    PKG_HASH:=
 else ifeq ($(ARCH),mips)
-    PKG_ARCH_ADG := linux_mips64
-    PKG_HASH := 7cd2a51678b1bb1deb025a705c740ae2d0d8ed9917bb9d8af85c9c79a2218004
-else ifeq ($(ARCH),arm)
-    PKG_ARCH_ADG := linux_armv6
-    PKG_HASH := 6383bf397bfa7555e9a9532dfae847d60dd09bfa95f4dd8fd347ed9ed5f043c6
-else ifeq ($(ARCH),aarch64)
-    PKG_ARCH_ADG := linux_arm64
-    PKG_HASH := 98111211c49529c7e6db99a63bff8203c0bddcf79f33f04ab4e094b6b962c1fc
+    PKG_ARCH_ADG:=linux_mipsle_softfloat
+    PKG_HASH:=
+else ifeq ($(findstring $(ARCH),mips64 mips64sel),$(ARCH))
+    PKG_ARCH_ADG:=linux_mips64sel_softfloat
+    PKG_HASH:=
+else ifeq ($(ARCH),armv5)
+    PKG_ARCH_ADG:=linux_armv5
+    PKG_HASH:=
+else ifeq ($(ARCH),armv6)
+    PKG_ARCH_ADG:=linux_armv6
+    PKG_HASH:=
+else ifeq ($(ARCH),armv7l)
+    PKG_ARCH_ADG:=linux_armv7
+    PKG_HASH:=
+else ifeq ($(findstring $(ARCH),aarch64 aarch64_be),$(ARCH))
+    PKG_ARCH_ADG:=linux_arm64
+    PKG_HASH:=
 endif
 
-ADG_FILE:=AdGuardHome_$(PKG_ARCH_ADG).tar.gz
+# If you want to check the hash, please complete the "PKG_HASH:=" above (requires sha256), 
+# and replace the "HASH:=skip" below with "HASH:=$(PKG_HASH)"
+
+ADG_FILE:=AdGuardHome_$(PKG_ARCH_ADG)_$(PKG_VERSION).tar.gz
 define Download/adguardhome
 	URL:=https://github.com/AdguardTeam/AdGuardHome/releases/download/v$(PKG_VERSION)/
 	URL_FILE:=AdGuardHome_$(PKG_ARCH_ADG).tar.gz
 	FILE:=$(ADG_FILE)
-    HASH:=$(PKG_HASH)
+    HASH:=skip
 endef
 
 define Build/Prepare
