@@ -7,7 +7,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=adguardhome
-PKG_VERSION:=0.108.0-b.61
+PKG_VERSION:=0.108.0-b.62
 PKG_RELEASE:=1
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
@@ -30,29 +30,17 @@ define Package/adguardhome/description
   Free and open source, powerful network-wide ads and trackers blocking DNS server.
 endef
 
-ifeq ($(findstring $(ARCH),x86_64 x64 amd64),$(ARCH))
+ifeq ($(findstring $(ARCH),x86_64),$(ARCH))
     PKG_ARCH_ADG:=linux_amd64
     PKG_HASH:=
-else ifeq ($(findstring $(ARCH),i386 i486 i686 i786 x86),$(ARCH))
+else ifeq ($(findstring $(ARCH),i386),$(ARCH))
     PKG_ARCH_ADG:=linux_386
     PKG_HASH:=
-else ifeq ($(ARCH),mips)
-    PKG_ARCH_ADG:=linux_mipsle_softfloat
-    PKG_HASH:=
-else ifeq ($(findstring $(ARCH),mips64 mips64sel),$(ARCH))
-    PKG_ARCH_ADG:=linux_mips64sel_softfloat
-    PKG_HASH:=
-else ifeq ($(ARCH),armv5)
-    PKG_ARCH_ADG:=linux_armv5
-    PKG_HASH:=
-else ifeq ($(ARCH),armv6)
-    PKG_ARCH_ADG:=linux_armv6
-    PKG_HASH:=
-else ifeq ($(ARCH),armv7l)
-    PKG_ARCH_ADG:=linux_armv7
-    PKG_HASH:=
-else ifeq ($(findstring $(ARCH),aarch64 aarch64_be),$(ARCH))
+else ifeq ($(findstring $(ARCH),aarch64),$(ARCH))
     PKG_ARCH_ADG:=linux_arm64
+    PKG_HASH:=
+else ifeq ($(findstring $(ARCH),arm),$(ARCH))
+    PKG_ARCH_ADG:=linux_armv7
     PKG_HASH:=
 endif
 
