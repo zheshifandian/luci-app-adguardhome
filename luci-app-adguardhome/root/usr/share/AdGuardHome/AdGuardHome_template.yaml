@@ -97,63 +97,63 @@ filters:
   - enabled: false
     url: https://adaway.org/hosts.txt
     name: Adaway HOST
-    id: 139789187
+    id: 100000001
   - enabled: false
     url: https://easylist-downloads.adblockplus.org/antiadblockfilters.txt
     name: Adblock Warning Removal List
-    id: 139789174
+    id: 100000002
   - enabled: false
     url: https://filters.adtidy.org/extension/ublock/filters/14.txt
     name: AdGuard Annoyances filter
-    id: 139789162
+    id: 100000003
   - enabled: false
     url: https://filters.adtidy.org/extension/ublock/filters/2_without_easylist.txt
     name: AdGuard Base filter
-    id: 139789173
+    id: 100000004
   - enabled: false
     url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
     name: AdGuard DNS filter
-    id: 1228750870
+    id: 100000005
   - enabled: false
     url: https://filters.adtidy.org/extension/ublock/filters/11.txt
     name: AdGuard Mobile Ads filter
-    id: 139789172
+    id: 100000006
   - enabled: false
     url: https://filters.adtidy.org/extension/ublock/filters/3.txt
     name: AdGuard Tracking Protection filter
-    id: 139789165
+    id: 100000007
   - enabled: false
     url: https://anti-ad.net/adguard.txt
     name: anti-AD命中率最高列表
-    id: 139789122
+    id: 100000008
   - enabled: false
     url: https://easylist.to/easylist/easylist.txt
     name: EasyList
-    id: 139789171
+    id: 100000009
   - enabled: false
     url: https://easylist-downloads.adblockplus.org/easylistchina.txt
     name: EasyList China-EasyList针对国内的补充规则
-    id: 139789121
+    id: 100000010
   - enabled: false
     url: https://secure.fanboy.co.nz/fanboy-cookiemonster.txt
     name: EasyList Cookie List
-    id: 139789155
+    id: 100000011
   - enabled: false
     url: https://easylist-downloads.adblockplus.org/easylist.txt
     name: EasyList-去除国际网页中大多数广告，包括不需要的框架、图像和对象
-    id: 139789112
+    id: 100000012
   - enabled: false
     url: https://easylist.to/easylist/fanboy-annoyance.txt
     name: Fanboy's Annoyance List
-    id: 139789154
+    id: 100000013
   - enabled: false
     url: https://easylist.to/easylist/fanboy-social.txt
     name: Fanboy's Social Blocking List
-    id: 139789153
+    id: 100000014
   - enabled: false
     url: https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=1&mimetype=plaintext
-    name: Peter Lowe’s Ad and tracking server list​
-    id: 139789152
+    name: Peter Lowe's Ad and tracking server list
+    id: 100000015
 whitelist_filters: []
 user_rules:
   - '@@||taobao.com^$important'
