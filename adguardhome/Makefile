@@ -7,12 +7,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=adguardhome
-PKG_VERSION:=0.108.0-b.65
+PKG_VERSION:=0.108.0-b.66
 PKG_RELEASE:=1
 
 PKG_LICENSE:=GPL-3.0-only
 PKG_MAINTAINER:=Jack Sun <sunjiazheng321521@gmail.com>
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)/$(PKG_VERSION)
 
 ifeq ($(findstring $(ARCH),x86_64),$(ARCH))
 	PKG_ARCH_ADG:=linux_amd64
@@ -22,7 +22,7 @@ else ifeq ($(findstring $(ARCH),i386 i686),$(ARCH))
 	PKG_HASH:=
 else ifeq ($(findstring $(ARCH),aarch64 aarch64_be),$(ARCH))
 	PKG_ARCH_ADG:=linux_arm64
-	PKG_HASH:=891d9eb1db6b9a95e9dd6e6ff03f8fc0979c6ba841cfac5cd736bf7bdc0854a2
+	PKG_HASH:=skip
 else ifeq ($(findstring $(ARCH),arm armeb),$(ARCH))
 	PKG_ARCH_ADG:=linux_armv7
 	PKG_HASH:=
@@ -69,6 +69,7 @@ define Download/adguardhome
 endef
 
 define Build/Prepare
+	rm -rf $(BUILD_DIR)/$(PKG_NAME)
 	mkdir -p $(PKG_BUILD_DIR)
 	gzip -dc $(DL_DIR)/$(ADG_FILE) | $(HOST_TAR) -C $(PKG_BUILD_DIR)/ $(TAR_OPTIONS)
 endef
