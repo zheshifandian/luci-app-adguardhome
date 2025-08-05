@@ -5,7 +5,7 @@ local m,s,o,o1
 local fs=require"nixio.fs"
 local uci=require"luci.model.uci".cursor()
 local configpath=uci:get("AdGuardHome","AdGuardHome","configpath") or "/etc/AdGuardHome.yaml"
-local binpath=uci:get("AdGuardHome","AdGuardHome","binpath") or "/etc/AdGuardHome/AdGuardHome"
+local binpath=uci:get("AdGuardHome","AdGuardHome","binpath") or "/usr/bin/AdGuardHome"
 httpport=uci:get("AdGuardHome","AdGuardHome","httpport") or "3000"
 m = Map("AdGuardHome", "AdGuard Home")
 m.description = translate("Free and open source, powerful network-wide ads & trackers blocking DNS server.")
@@ -25,32 +25,32 @@ o.default=3000
 o.datatype="port"
 o.optional = false
 o.description = translate("<input type=\"button\" style=\"width:210px;border-color:Teal; text-align:center;font-weight:bold;color:Green;\" value=\"AdGuardHome Web:"..httpport.."\" onclick=\"window.open('http://'+window.location.hostname+':"..httpport.."/')\"/>")
----- update warning not safe
-local binmtime=uci:get("AdGuardHome","AdGuardHome","binmtime") or "0"
-local e=""
-if not fs.access(configpath) then
-	e=e.." "..translate("no config")
-end
-if not fs.access(binpath) then
-	e=e.." "..translate("no core")
-else
-	local version=uci:get("AdGuardHome","AdGuardHome","version")
-	local testtime=fs.stat(binpath,"mtime")
-	if testtime~=tonumber(binmtime) or version==nil then
-		local tmp=luci.sys.exec(binpath.." --version | grep -m 1 -E 'v[0-9.]+' -o ")
-		version=string.sub(tmp, 1)
-		if version=="" then version="core error" end
-		uci:set("AdGuardHome","AdGuardHome","version",version)
-		uci:set("AdGuardHome","AdGuardHome","binmtime",testtime)
-		uci:save("AdGuardHome")
-	end
-	e=version..e
-end
-o=s:option(Button,"restart",translate("Update"))
-o.inputtitle=translate("Update core version")
-o.template = "AdGuardHome/AdGuardHome_check"
-o.showfastconfig=(not fs.access(configpath))
-o.description=string.format(translate("core version:").."<strong><font id=\"updateversion\" color=\"green\">%s </font></strong>",e)
+-- ---- update warning not safe
+-- local binmtime=uci:get("AdGuardHome","AdGuardHome","binmtime") or "0"
+-- local e=""
+-- if not fs.access(configpath) then
+-- 	e=e.." "..translate("no config")
+-- end
+-- if not fs.access(binpath) then
+-- 	e=e.." "..translate("no core")
+-- else
+-- 	local version=uci:get("AdGuardHome","AdGuardHome","version")
+-- 	local testtime=fs.stat(binpath,"mtime")
+-- 	if testtime~=tonumber(binmtime) or version==nil then
+-- 		local tmp=luci.sys.exec(binpath.." --version | grep -m 1 -E 'v[0-9.]+' -o ")
+-- 		version=string.sub(tmp, 1)
+-- 		if version=="" then version="core error" end
+-- 		uci:set("AdGuardHome","AdGuardHome","version",version)
+-- 		uci:set("AdGuardHome","AdGuardHome","binmtime",testtime)
+-- 		uci:save("AdGuardHome")
+-- 	end
+-- 	e=version..e
+-- end
+-- o=s:option(Button,"restart",translate("Update"))
+-- o.inputtitle=translate("Update core version")
+-- o.template = "AdGuardHome/AdGuardHome_check"
+-- o.showfastconfig=(not fs.access(configpath))
+-- o.description=string.format(translate("core version:").."<strong><font id=\"updateversion\" color=\"green\">%s </font></strong>",e)
 ---- port warning not safe
 local port=luci.sys.exec("awk -F ': ' '/ port:/{count++; if (count == 2) printf($2);}' "..configpath.." 2>nul")
 if (port=="") then port="?" end
@@ -65,7 +65,7 @@ o.default     = "none"
 o.optional = true
 ---- bin path
 o = s:option(Value, "binpath", translate("Bin Path"), translate("AdGuardHome Bin path if no bin will auto download"))
-o.default     = "/etc/AdGuardHome/AdGuardHome"
+o.default     = "/usr/bin/AdGuardHome"
 o.datatype    = "string"
 o.optional = false
 o.rmempty=false
@@ -255,7 +255,7 @@ end
 
 ----Crontab
 o = s:option(MultiValue, "crontab", translate("Crontab task"),translate("Please change time and args in crontab"))
-o:value("autoupdate",translate("Auto update core"))
+-- o:value("autoupdate",translate("Auto update core"))
 o:value("cutquerylog",translate("Auto tail querylog"))
 o:value("cutruntimelog",translate("Auto tail runtime log"))
 o:value("autohost",translate("Auto update ipv6 hosts and restart adh"))

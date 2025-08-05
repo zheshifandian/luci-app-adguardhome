@@ -58,24 +58,24 @@ function act_status()
 	http.prepare_content("application/json")
 	http.write_json(e)
 end
-function do_update()
-	fs.writefile("/var/run/lucilogpos","0")
-	http.prepare_content("application/json")
-	http.write('')
-	local arg
-	if luci.http.formvalue("force") == "1" then
-		arg="force"
-	else
-		arg=""
-	end
-	if fs.access("/var/run/update_core") then
-		if arg=="force" then
-			luci.sys.exec("kill $(pgrep /usr/share/AdGuardHome/update_core.sh) ; sh /usr/share/AdGuardHome/update_core.sh "..arg.." >/tmp/AdGuardHome_update.log 2>&1 &")
-		end
-	else
-		luci.sys.exec("sh /usr/share/AdGuardHome/update_core.sh "..arg.." >/tmp/AdGuardHome_update.log 2>&1 &")
-	end
-end
+-- function do_update()
+-- 	fs.writefile("/var/run/lucilogpos","0")
+-- 	http.prepare_content("application/json")
+-- 	http.write('')
+-- 	local arg
+-- 	if luci.http.formvalue("force") == "1" then
+-- 		arg="force"
+-- 	else
+-- 		arg=""
+-- 	end
+-- 	if fs.access("/var/run/update_core") then
+-- 		if arg=="force" then
+-- 			luci.sys.exec("kill $(pgrep /usr/share/AdGuardHome/update_core.sh) ; sh /usr/share/AdGuardHome/update_core.sh "..arg.." >/tmp/AdGuardHome_update.log 2>&1 &")
+-- 		end
+-- 	else
+-- 		luci.sys.exec("sh /usr/share/AdGuardHome/update_core.sh "..arg.." >/tmp/AdGuardHome_update.log 2>&1 &")
+-- 	end
+-- end
 function get_log()
 	local logfile=uci:get("AdGuardHome","AdGuardHome","logfile")
 	if (logfile==nil) then
@@ -113,18 +113,18 @@ function do_dellog()
 	http.prepare_content("application/json")
 	http.write('')
 end
-function check_update()
-	http.prepare_content("text/plain; charset=utf-8")
-	local fdp=tonumber(fs.readfile("/var/run/lucilogpos")) or 0
-	local f=io.open("/tmp/AdGuardHome_update.log", "r+")
-	f:seek("set",fdp)
-	local a=f:read(2048000) or ""
-	fdp=f:seek()
-	fs.writefile("/var/run/lucilogpos",tostring(fdp))
-	f:close()
-if fs.access("/var/run/update_core") then
-	http.write(a)
-else
-	http.write(a.."\0")
-end
-end
+-- function check_update()
+-- 	http.prepare_content("text/plain; charset=utf-8")
+-- 	local fdp=tonumber(fs.readfile("/var/run/lucilogpos")) or 0
+-- 	local f=io.open("/tmp/AdGuardHome_update.log", "r+")
+-- 	f:seek("set",fdp)
+-- 	local a=f:read(2048000) or ""
+-- 	fdp=f:seek()
+-- 	fs.writefile("/var/run/lucilogpos",tostring(fdp))
+-- 	f:close()
+-- if fs.access("/var/run/update_core") then
+-- 	http.write(a)
+-- else
+-- 	http.write(a.."\0")
+-- end
+-- end

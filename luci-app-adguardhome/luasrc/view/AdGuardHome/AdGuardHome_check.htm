@@ -65,14 +65,14 @@ XHR.poll(3, '<%=url([[admin]], [[services]], [[AdGuardHome]], [[check]])%>', nul
 		}
 	}
 );}
-<% if fs.access("/var/run/update_core") then %>
-	updatebtn.disabled = true;
-	updatebtn.value    = '<%:Check...%>';
-	forceupdatebtn.style.display="inline"
-	poll_check();
-<%elseif fs.access("/var/run/update_core_error") then %>
-	poll_check();
-<%end%>
+// <% if fs.access("/var/run/update_core") then %>
+// 	updatebtn.disabled = true;
+// 	updatebtn.value    = '<%:Check...%>';
+// 	forceupdatebtn.style.display="inline"
+// 	poll_check();
+// <%elseif fs.access("/var/run/update_core_error") then %>
+// 	poll_check();
+// <%end%>
 //]]>
 </script>
 <%+cbi/valuefooter%>

@@ -7,12 +7,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=adguardhome
-PKG_VERSION:=0.108.0-b.66
+PKG_VERSION:=0.108.0-b.73
 PKG_RELEASE:=1
 
 PKG_LICENSE:=GPL-3.0-only
 PKG_MAINTAINER:=Jack Sun <sunjiazheng321521@gmail.com>
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)/$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 ifeq ($(findstring $(ARCH),x86_64),$(ARCH))
 	PKG_ARCH_ADG:=linux_amd64
@@ -56,10 +56,6 @@ define Package/adguardhome/description
 	Free and open source, powerful network-wide ads and trackers blocking DNS server.
 endef
 
-define Package/adguardhome/conffiles
-/etc/AdGuardHome/
-endef
-
 ADG_FILE:=AdGuardHome_$(PKG_ARCH_ADG)_$(PKG_VERSION).tar.gz
 define Download/adguardhome
 	URL:=https://github.com/AdguardTeam/AdGuardHome/releases/download/v$(PKG_VERSION)/
@@ -78,8 +74,8 @@ define Build/Compile
 endef
 
 define Package/adguardhome/install
-	$(INSTALL_DIR) $(1)/etc/AdGuardHome
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/AdGuardHome $(1)/etc/AdGuardHome/
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/AdGuardHome $(1)/usr/bin/
 endef
 
 $(eval $(call Download,adguardhome))
