@@ -7,7 +7,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=adguardhome
-PKG_VERSION:=0.108.0-b.73
+PKG_VERSION:=0.108.0-b.80
 PKG_RELEASE:=1
 
 PKG_LICENSE:=GPL-3.0-only
