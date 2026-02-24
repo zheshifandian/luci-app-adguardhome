@@ -23,7 +23,9 @@ dns:
   ratelimit_whitelist: []
   refuse_any: false
   upstream_dns:
-    - 223.5.5.5
+    - https://223.5.5.5:443/dns-query
+    - tcp://223.5.5.5:53
+    - tls://223.5.5.5:853
   upstream_dns_file: ""
   bootstrap_dns:
     - 119.29.29.29
@@ -40,10 +42,11 @@ dns:
   trusted_proxies:
     - 127.0.0.0/8
     - ::1/128
-  cache_size: 0
-  cache_ttl_min: 0
-  cache_ttl_max: 0
-  cache_optimistic: false
+  cache_enabled: true
+  cache_size: 4194304
+  cache_ttl_min: 600
+  cache_ttl_max: 3600
+  cache_optimistic: true
   bogus_nxdomain: []
   aaaa_disabled: true
   enable_dnssec: false
@@ -76,23 +79,25 @@ tls:
   port_dnscrypt: 0
   dnscrypt_config_file: ""
   allow_unencrypted_doh: false
-  strict_sni_check: false
   certificate_chain: ""
   private_key: ""
   certificate_path: ""
   private_key_path: ""
+  strict_sni_check: false
 querylog:
   dir_path: ""
   ignored: []
   interval: 168h
   size_memory: 1000
   enabled: true
+  ignored_enabled: false
   file_enabled: true
 statistics:
   dir_path: ""
   ignored: []
   interval: 168h
   enabled: true
+  ignored_enabled: false
 filters:
   - enabled: false
     url: https://adaway.org/hosts.txt
@@ -173,6 +178,16 @@ dhcp:
     lease_duration: 86400
     ra_slaac_only: false
     ra_allow_slaac: false
+filtering:
+  safe_search:
+    enabled: false
+    bing: false
+    duckduckgo: false
+    ecosia: false
+    google: false
+    pixabay: false
+    yandex: false
+    youtube: false
 log:
   enabled: true
   file: ""
@@ -186,4 +201,4 @@ os:
   group: ""
   user: ""
   rlimit_nofile: 0
-schema_version: 29
+schema_version: 33
